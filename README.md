@@ -33,6 +33,13 @@ The trade-off: no transfer-encoding decoding is performed. If a part has `Conten
 - A `ValueError` is raised if the closing boundary (`--BOUNDARY--`) is missing.
 - Preamble text before the first boundary and epilogue text after the closing boundary are ignored, as the RFC allows.
 
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
+
 ## License
 
 MIT
